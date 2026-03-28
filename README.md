@@ -12,78 +12,66 @@
 
 HumanCrafter targets the joint modeling of geometry, appearance, and part semantics in a feed-forward framework, combining human geometric priors, self-supervised semantic priors, and an interactive annotation pipeline for building 3D human-part labels.
 
-## News
-
-- `2025-11-01`: HumanCrafter was released on arXiv: [HumanCrafter: Synergizing Generalizable Human Reconstruction and Semantic 3D Segmentation](https://arxiv.org/abs/2511.00468).
-- `2025-11-01`: HumanCrafter was accepted to NeurIPS 2025.
-- `2025-11-01`: The project page is available at [paulpanwang.github.io/HumanCrafter](https://paulpanwang.github.io/HumanCrafter/).
-
-## Overview
-
-HumanCrafter aims to unify two tasks that are usually handled separately:
-
-- generalizable 3D human reconstruction from a single image
-- semantic 3D segmentation of human parts
-
-The released paper describes a framework that:
-
-- introduces geometric priors during reconstruction
-- injects self-supervised semantic priors for part-aware reasoning
-- leverages pixel-aligned cross-task aggregation
-- couples appearance modeling and semantic consistency in a joint objective
-
-<p align="center">
-  <img src="https://paulpanwang.github.io/HumanCrafter/static/images/human3r_teaser.png" width="88%" alt="HumanCrafter teaser">
-</p>
-
 ## Method
 
 <p align="center">
-  <img src="https://paulpanwang.github.io/HumanCrafter/static/images/network.png" width="95%" alt="HumanCrafter method overview">
+  <img src="./assets/readme/method-overview.png" width="95%" alt="HumanCrafter method overview">
 </p>
 
 HumanCrafter uses a feed-forward architecture to regress pixel-aligned point maps and semantic 3D Gaussians from a single image, jointly modeling geometry, appearance, and human-part semantics.
 
-## Showcase Videos
+## Installation
 
-We showcase qualitative results from the [project page](https://paulpanwang.github.io/HumanCrafter/), covering semantic body-part segmentation, textured novel-view rendering, and geometric reconstruction. The public page currently presents these demos as visual galleries and downloadable 3D assets.
+```bash
+pip install -e .
+pip install torch
+```
 
-<p align="center">
-  <img src="https://paulpanwang.github.io/HumanCrafter/static/images/novel/novel_0.png" width="23%" alt="HumanCrafter textural result 1">
-  <img src="https://paulpanwang.github.io/HumanCrafter/static/images/novel/novel_10.png" width="23%" alt="HumanCrafter textural result 2">
-  <img src="https://paulpanwang.github.io/HumanCrafter/static/images/novel/novel_14.png" width="23%" alt="HumanCrafter textural result 3">
-  <img src="https://paulpanwang.github.io/HumanCrafter/static/images/novel/novel_18.png" width="23%" alt="HumanCrafter textural result 4">
-</p>
+`torch` is kept separate because the exact version depends on your CUDA or CPU environment.
 
-<p align="center">
-  <img src="https://paulpanwang.github.io/HumanCrafter/static/images/3DGS/novel_10.png" width="23%" alt="HumanCrafter geometric result 1">
-  <img src="https://paulpanwang.github.io/HumanCrafter/static/images/3DGS/novel_14.png" width="23%" alt="HumanCrafter geometric result 2">
-  <img src="https://paulpanwang.github.io/HumanCrafter/static/images/3DGS/novel_29.png" width="23%" alt="HumanCrafter geometric result 3">
-  <img src="https://paulpanwang.github.io/HumanCrafter/static/images/3DGS/novel_42.png" width="23%" alt="HumanCrafter geometric result 4">
-</p>
+## Inference
 
-Selected downloadable meshes from the project page:
+Prepare a checkpoint path inside `configs/inference.yaml`, then run:
 
-- [Ours: sample A](https://paulpanwang.github.io/HumanCrafter/static/images/3DGS/novel_10.ply)
-- [Baseline Human3Diffusion: sample A](https://paulpanwang.github.io/HumanCrafter/static/images/3DGS/output_video1.ply)
-- [Ours: sample B](https://paulpanwang.github.io/HumanCrafter/static/images/3DGS/novel_29.ply)
-- [Baseline Human3Diffusion: sample B](https://paulpanwang.github.io/HumanCrafter/static/images/3DGS/output_video5.ply)
+```bash
+python scripts/inference_humancrafter.py \
+  --config configs/inference.yaml \
+  --input_dir path/to/images \
+  --output_dir outputs/inference
+```
 
-## Project Page
+For backwards compatibility, the old root entry point still works:
 
-For more qualitative results, mesh downloads, and paper resources, please visit:
+```bash
+python inference.py --config configs/inference.yaml --input_dir path/to/images --output_dir outputs/inference
+```
 
-- [HumanCrafter Project Page](https://paulpanwang.github.io/HumanCrafter/)
-- [HumanCrafter on arXiv](https://arxiv.org/abs/2511.00468)
+Each sample output directory stores:
 
-## Release Status
+- `results.npz`
+- per-key `.npy` arrays
+- `metadata.json`
+- `semantic_preview.png` when semantic predictions are available
 
-- [x] Paper
-- [x] Project page
-- [x] Qualitative demos and downloadable sample assets
-- [ ] Cleaned training and inference code release
-- [ ] Checkpoints and evaluation scripts
-- [ ] Dependency and environment setup instructions
+## Evaluation
+
+Create a manifest following [datasets/README.md](datasets/README.md), then run:
+
+```bash
+python scripts/evaluate_humancrafter.py \
+  --config configs/evaluation.yaml \
+  --manifest datasets/example_manifest.json \
+  --output_dir outputs/evaluation \
+  --save_predictions
+```
+
+The evaluation command writes aggregate metrics to `metrics.yaml` and per-sample metrics to `metrics_per_sample.yaml`.
+
+## Notes
+
+- The architecture in this repository is a clean baseline scaffold derived from the paper description and project-page claims.
+- Dataset specifics, full training recipes, and released checkpoints still need to be filled in with project-specific assets.
+- The repo is now organized so those components can be added without rewriting the surrounding tooling.
 
 ## Citation
 

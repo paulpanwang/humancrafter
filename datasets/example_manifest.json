@@ -1,0 +1,12 @@
+[
+  {
+    "name": "example_subject",
+    "image_path": "../data/example_subject.png",
+    "point_cloud_path": "../data/example_subject_point_cloud.npy",
+    "semantic_path": "../data/example_subject_semantic.npy",
+    "appearance_path": "../data/example_subject_appearance.npy",
+    "metadata": {
+      "note": "Replace this manifest with your actual dataset entries."
+    }
+  }
+]

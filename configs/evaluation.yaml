@@ -1,0 +1,15 @@
+model:
+  image_size: 256
+  hidden_dim: 128
+  bottleneck_dim: 256
+  feature_dim: 64
+  num_semantic_classes: 4
+  checkpoint_path: null
+
+evaluation:
+  device: cpu
+  image_size: 256
+  manifest_path: datasets/example_manifest.json
+  num_semantic_classes: 4
+  save_predictions: true
+  save_visualization: true
