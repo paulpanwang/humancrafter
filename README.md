@@ -15,7 +15,7 @@ HumanCrafter targets the joint modeling of geometry, appearance, and part semant
 ## Method
 
 <p align="center">
-  <img src="./assets/readme/method-overview.png" width="95%" alt="HumanCrafter method overview">
+  <img src="assets/readme/method-overview.png" width="95%" alt="HumanCrafter method overview">
 </p>
 
 HumanCrafter uses a feed-forward architecture to regress pixel-aligned point maps and semantic 3D Gaussians from a single image, jointly modeling geometry, appearance, and human-part semantics.
@@ -23,11 +23,22 @@ HumanCrafter uses a feed-forward architecture to regress pixel-aligned point map
 ## Installation
 
 ```bash
+python -m venv .venv
+source .venv/bin/activate
+pip install --upgrade pip
+pip install torch torchvision
+pip install -r requirements.txt
 pip install -e .
-pip install torch
 ```
 
-`torch` is kept separate because the exact version depends on your CUDA or CPU environment.
+If you need a CUDA-specific PyTorch build, replace the `pip install torch torchvision` line with the wheel command recommended by the official PyTorch installation guide for your CUDA version.
+
+The repository requirements are expanded with the current HumanCrafter scaffold needs plus commonly used research dependencies referenced from the [PartCrafter requirements](https://github.com/wgsxm/PartCrafter/blob/main/settings/requirements.txt), including:
+
+- `diffusers`, `transformers`, `peft`
+- `einops`, `jaxtyping`, `typeguard`
+- `opencv-python`, `trimesh`, `pyrender`, `scikit-image`
+- `gpustat`, `nvitop`, `wandb[media]`
 
 ## Inference
 
