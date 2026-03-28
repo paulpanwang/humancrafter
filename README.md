@@ -67,7 +67,11 @@ python scripts/evaluate_humancrafter.py \
 
 The evaluation command writes aggregate metrics to `metrics.yaml` and per-sample metrics to `metrics_per_sample.yaml`.
 
+## Notes
 
+- The architecture in this repository is a clean baseline scaffold derived from the paper description and project-page claims.
+- Dataset specifics, full training recipes, and released checkpoints still need to be filled in with project-specific assets.
+- The repo is now organized so those components can be added without rewriting the surrounding tooling.
 
 ## Citation
 
