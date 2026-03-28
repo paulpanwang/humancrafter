@@ -10,7 +10,7 @@
   <a href="https://github.com/paulpanwang/humancrafter"><img src="https://img.shields.io/badge/Code-GitHub-181717.svg" alt="GitHub"></a>
 </p>
 
-HumanCrafter is a research project for single-image 3D human reconstruction and semantic human-part segmentation. It targets the joint modeling of geometry, appearance, and part semantics in a feed-forward framework, combining human geometric priors, self-supervised semantic priors, and an interactive annotation pipeline for building 3D human-part labels.
+HumanCrafter targets the joint modeling of geometry, appearance, and part semantics in a feed-forward framework, combining human geometric priors, self-supervised semantic priors, and an interactive annotation pipeline for building 3D human-part labels.
 
 ## News
 
