@@ -1,3 +1,3 @@
-# HumanCrafter: Synergizing Generalizable Human Reconstruction and Semantic 3D Segmentation
+## HumanCrafter: Synergizing Generalizable Human Reconstruction and Semantic 3D Segmentation
 
 
